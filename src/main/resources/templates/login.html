@@ -5,13 +5,13 @@
   </head>
   <body>
     <p>Login page</p>
-    <div th:if="${param.error}">
+    <div style="color: red" th:if="${param.error}">
       Invalid username and password.
     </div>
-    <div th:if="${param.logout}">
+    <div style="color: green" th:if="${param.logout}">
       You have been logged out.
     </div>
-    <form th:action="@{/login}" method="POST">
+    <form th:method="POST" th:action="@{/login}">
       <div><label> User Name : <input type="text" name="username"/> </label></div>
       <div><label> Password: <input type="password" name="password"/> </label></div>
       <div><input type="submit" value="Sign In"/></div>

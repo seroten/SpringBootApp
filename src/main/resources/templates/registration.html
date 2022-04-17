@@ -5,20 +5,16 @@
     <title>Registration page </title>
   </head>
   <body>
-    <div th:if="${param.error}">
-      Invalid username and password.
-    </div>
-    <div th:if="${param.logout}">
-      You have been logged out.
-    </div>
-    <div th:if="${message}">
+    <div style="color: red" th:if="${message}">
       <p th:utext="${message}"/>
     </div>
     <p>Add new user</p>
-    <form th:action="@{/registration}" method="POST">
-      <div><label> User Name : <input type="text" name="username"/> </label></div>
+    <form th:method="POST" th:action="@{/registration}">
+      <div><label> User name : <input type="text" name="username"/> </label></div>
       <div><label> Password: <input type="password" name="password"/> </label></div>
       <div><input type="submit" value="Sign Up"/></div>
     </form>
+    </br>
+    <a th:href="@{/main}">Back to main</a>
   </body>
 </html>

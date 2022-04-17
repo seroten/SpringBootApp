@@ -25,6 +25,7 @@
         <b th:utext="${message.getId()}">id</b>
         <span th:utext="${message.getText()}">text</span>
         <i th:utext="${message.getTag()}">tag</i>
+        <a th:href="@{/{id}/delete(id=${message.getId()})}">Delete</a>
     </div>
 </body>
 </html>
