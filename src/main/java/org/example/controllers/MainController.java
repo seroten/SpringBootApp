@@ -1,15 +1,14 @@
 package org.example.controllers;
 
 import org.example.entities.Message;
+import org.example.entities.User;
 import org.example.repositories.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MainController {
@@ -28,10 +27,12 @@ public class MainController {
     }
 
     @PostMapping("/main")
-    public String add(@RequestParam("text") String text,
-                      @RequestParam("tag") String tag,
-                      Model model) {
-        Message message = new Message(text, tag);
+    public String add(
+                    @AuthenticationPrincipal User user,
+                    @RequestParam("text") String text,
+                    @RequestParam("tag") String tag,
+                    Model model) {
+        Message message = new Message(text, tag, user);
         messageRepo.save(message);
 
         model.addAttribute("messages", messageRepo.findAll());
@@ -48,7 +49,7 @@ public class MainController {
         return "main";
     }
 
-    @GetMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     @Transactional
     public String delete(@PathVariable("id") int id) {
         messageRepo.deleteMessagesById(id);
