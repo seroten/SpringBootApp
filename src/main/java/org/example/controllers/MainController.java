@@ -49,10 +49,15 @@ public class MainController {
         return "main";
     }
 
-    @DeleteMapping("/{id}")
+    @GetMapping("/{id}/delete")
     @Transactional
     public String delete(@PathVariable("id") int id) {
         messageRepo.deleteMessagesById(id);
         return "redirect:/main";
+    }
+
+    @GetMapping("/learn")
+    public String learn() {
+        return "learnEnglish";
     }
 }
